@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $data['count'] = DB::table('user')->where('device',1)->where('status',0)->count();
+    $data['android_data'] = DB::table('user')->where('device',1)->where('status',0)->get();
+    return view('welcome',$data);
 });
